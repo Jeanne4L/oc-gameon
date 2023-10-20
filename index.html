@@ -28,7 +28,7 @@
 				<a
 					href="javascript:void(0);"
 					class="icon menu-icon"
-					onclick="editNav()"
+					onclick="displayMenu()"
 				>
 					<i class="fa fa-bars"></i>
 				</a>
@@ -229,6 +229,9 @@
 								</label>
 							</div>
 						</form>
+						<p id="form-error" class="error-message hidden">
+							Veuillez remplir tous les champs requis (*)
+						</p>
 						<button id="submit-btn" class="btn btn-submit btn--red">
 							C'est parti
 						</button>
