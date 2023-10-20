@@ -48,7 +48,6 @@ main {
 }
 p {
 	margin-bottom: 0;
-	padding: 0.5vw;
 }
 img {
 	padding-right: 1rem;
@@ -56,6 +55,9 @@ img {
 a {
 	color: currentColor;
 	text-decoration: none;
+}
+.hidden {
+	display: none;
 }
 
 .topnav {
@@ -72,13 +74,14 @@ a {
 }
 .main-navbar a:not(.menu-icon) {
 	margin: 5px;
+	padding: 12px 12px;
 }
 .main-navbar a {
 	text-align: center;
-	padding: 12px 12px;
 }
 .menu-icon {
 	margin: 0;
+	padding: 5px 12px;
 }
 .main-navbar a:hover,
 .main-navbar a.active {
@@ -100,7 +103,6 @@ a {
 	background: var(--primary-color);
 	color: #fff;
 }
-
 .btn-signup {
 	font-size: 1.4rem;
 	display: flex;
@@ -108,10 +110,47 @@ a {
 	text-transform: capitalize;
 }
 
-/* Modal form */
+/* -------------- HERO --------------- */
+.hero-section {
+	border-radius: 10px;
+	display: flex;
+	box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.2);
+	margin-bottom: 10px;
+}
+.hero-content {
+	padding: 51px 67px;
+	background: var(--bg-color);
+	color: #fff;
+	position: relative;
+	text-align: left;
+	width: 50%;
+	max-width: 505px;
+}
+h1 {
+	font-size: clamp(3.5rem, 2.5909rem + 4.5455vw, 6rem);
+	font-weight: normal;
+	white-space: nowrap;
+}
+.hero-text {
+	font-weight: normal;
+	margin-top: 57px;
+	padding: 0;
+	width: 100%;
+}
+.hero-img {
+	flex: 1;
+}
+.hero-img img {
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	object-fit: cover;
+}
+
+/* ------------ Modal form ------------- */
 
 .btn-submit {
-	display: block;
+	display: inline-block;
 	margin: 0 auto;
 	border-radius: 7px;
 }
@@ -120,7 +159,6 @@ a {
 }
 
 .bground {
-	display: none;
 	position: fixed;
 	z-index: 1;
 	left: 0;
@@ -130,7 +168,10 @@ a {
 	overflow: auto;
 	background-color: rgba(26, 39, 156, 0.4);
 }
-
+.hide-modal-content {
+	transform: translateY(-1500px);
+	transition: transform 1000ms;
+}
 .content {
 	margin: 5% auto;
 	width: 100%;
@@ -144,12 +185,18 @@ a {
 	color: #fff;
 	padding-top: 10px;
 }
-
 .modal-body {
 	padding: 15px 8%;
 	margin: 15px auto;
+	height: 830px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	align-items: center;
 }
-
+fieldset {
+	border: none;
+}
 label {
 	font-family: var(--font-default);
 	font-size: 17px;
@@ -159,8 +206,15 @@ label {
 }
 input {
 	padding: 8px;
-	border: 0.8px solid #ccc;
+	border: 2px solid transparent;
 	outline: none;
+}
+.error {
+	border-color: var(--primary-color);
+}
+.error-message {
+	color: var(--primary-color);
+	font-size: 1rem;
 }
 .text-control {
 	margin: 0;
@@ -170,7 +224,6 @@ input {
 	font-size: 20px;
 	height: 48px;
 }
-
 .checkbox-label,
 .checkbox2-label {
 	position: relative;
@@ -260,46 +313,18 @@ input {
 .close:after {
 	transform: rotate(-45deg);
 }
-
 .text-label {
 	font-weight: normal;
 	font-size: 16px;
 }
-.hero-section {
-	border-radius: 10px;
-	display: flex;
-	box-shadow: 0 2px 7px 2px rgba(0, 0, 0, 0.2);
-	margin-bottom: 10px;
-}
-.hero-content {
-	padding: 51px 67px;
-	background: var(--bg-color);
-	color: #fff;
-	position: relative;
-	text-align: left;
-	width: 50%;
-	max-width: 505px;
-}
-h1 {
-	font-size: clamp(3.5rem, 2.5909rem + 4.5455vw, 6rem);
-	font-weight: normal;
-	white-space: nowrap;
-}
-.hero-text {
-	font-weight: normal;
-	margin-top: 57px;
-	padding: 0;
-	width: 100%;
-}
-.hero-img {
+.validation-title {
 	flex: 1;
+	display: flex;
+	align-items: center;
+	text-align: center;
+	font-weight: normal;
 }
-.hero-img img {
-	width: 100%;
-	height: 100%;
-	padding: 0;
-	object-fit: cover;
-}
+
 .copyrights {
 	color: #fe142f;
 	padding: 0;
@@ -343,7 +368,7 @@ footer {
 	.topnav.responsive .icon {
 		position: absolute;
 		right: 3.5%;
-		top: 3.5%;
+		top: 4%;
 	}
 	.topnav.responsive a {
 		float: none;
@@ -355,6 +380,9 @@ footer {
 	}
 	.topnav.responsive .main-navbar {
 		margin-top: 65px;
+	}
+	.topnav.responsive + main .hero-section {
+		margin-top: 0;
 	}
 }
 @media (max-width: 900px) {
@@ -400,6 +428,10 @@ footer {
 	}
 }
 @media (max-width: 500px) {
+	.header-logo img {
+		width: 150px;
+		padding-top: 15px;
+	}
 	.topnav {
 		position: fixed;
 		width: 100%;
@@ -411,7 +443,7 @@ footer {
 	}
 	.bground {
 		background: transparent;
-		top: 85px;
+		top: 67px;
 	}
 	.content {
 		margin-top: 0;

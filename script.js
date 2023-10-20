@@ -4,6 +4,20 @@ const modalBody = document.querySelector('.modal-body');
 const modalContent = document.querySelector('.content');
 const modalBtn = document.querySelectorAll('.btn-signup');
 const closeBtn = document.querySelector('.close');
+const form = document.querySelector('form');
+const formData = document.querySelectorAll('.formData');
+const firstName = document.querySelector('#first');
+const lastName = document.querySelector('#last');
+const email = document.querySelector('#email');
+const birthDate = document.querySelector('#birthdate');
+const qty = document.querySelector('#quantity');
+const useTerms = document.querySelector('#checkbox1');
+const submitBtn = document.querySelector('#submit-btn');
+const eventLocation = document.getElementsByName('location');
+
+const letterRegex = /^[A-Za-zÀ-ÿ']+$/u;
+const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
+const nbRegex = /^\d+$/;
 
 // display responsive menu
 function editNav() {
@@ -32,3 +46,16 @@ function closeModal() {
 closeBtn.addEventListener('click', () => {
 	closeModal();
 });
+
+// check input value
+function handleInputChange(elt, regex) {
+	elt.addEventListener('change', (e) => {
+		if (!regex.test(e.target.value)) {
+			elt.classList.add('error');
+			elt.nextElementSibling.classList.remove('hidden');
+		} else {
+			elt.classList.remove('error');
+			elt.nextElementSibling.classList.add('hidden');
+		}
+	});
+}
