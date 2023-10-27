@@ -16,6 +16,8 @@ const eventLocation = document.getElementsByName('location');
 const form = document.querySelector('form');
 const invalidForm = document.querySelector('#form-error');
 
+const validationMessage = document.createElement('h2');
+
 // regex for input validation
 const letterRegex = /^[A-Za-zÀ-ÿ']+$/u;
 const emailRegex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
@@ -35,8 +37,8 @@ function displayMenu() {
 function launchModal() {
 	modalbg.classList.remove('hidden');
 	modalContent.classList.remove('hide-modal-content');
+	form.classList.remove('hidden');
 }
-
 // close modal
 function closeModal() {
 	modalContent.classList.add('hide-modal-content');
@@ -44,6 +46,13 @@ function closeModal() {
 		modalbg.classList.add('hidden');
 	}, 400);
 }
+
+// launch modal event
+modalBtn.forEach((btn) => btn.addEventListener('click', launchModal));
+// close modal event
+closeBtn.addEventListener('click', () => {
+	closeModal();
+});
 
 // check input value
 function handleInputChange(elt, regex) {
@@ -71,15 +80,14 @@ submitBtn.addEventListener('click', () => {
 // handle form submit
 function handleSubmitClick() {
 	const locationValue = getSelectedLocation();
-
 	if (
-		isValidField(firstName) &&
-		isValidField(lastName) &&
-		isValidField(email) &&
-		isValidField(birthDate) &&
-		isValidField(locationValue) &&
-		isValidField(qty) &&
-		useTerms.checked
+		isValidInput(firstName) &&
+		isValidInput(lastName) &&
+		isValidInput(email) &&
+		isValidInput(birthDate) &&
+		isValidInput(locationValue) &&
+		isValidInput(qty) &&
+		useTerms.checked === true
 	) {
 		handleValidForm();
 	} else {
@@ -97,37 +105,49 @@ function getSelectedLocation() {
 	return '';
 }
 
-// check valid field
-function isValidField(field) {
-	return field.value !== null && field.value !== '';
+// check valid input
+function isValidInput(input) {
+	return input.value !== null && input.value !== '';
+}
+
+function changeModalStyle(maxHeight, height) {
+	modalBody.style.maxHeight = maxHeight;
+	modalContent.style.height = height;
 }
 
 // handle valid form
 function handleValidForm() {
+	// remove the form to display the validation message
+	form.reset();
 	form.classList.add('hidden');
-	const validationMessage = document.createElement('h2');
+
+	// create the validation message
 	validationMessage.innerHTML = 'Merci pour<br>votre inscription';
 	validationMessage.classList.add('validation-title');
-	modalBody.insertBefore(validationMessage, submitBtn);
+	modalBody.appendChild(validationMessage);
+	modalBody.appendChild(submitBtn);
+
+	// Change the button content
 	submitBtn.textContent = 'Fermer';
-	submitBtn.removeEventListener('click', handleSubmitClick);
+
+	// Change modal style
+	changeModalStyle('70vh', '100vh');
+	invalidForm.classList.add('hidden');
+
+	// Close button event
 	submitBtn.addEventListener('click', () => {
 		closeModal();
+		validationMessage.classList.add('hidden');
+
+		// Change modal style
+		submitBtn.textContent = "C'est parti";
+		changeModalStyle('none', 'auto');
 	});
-	modalBody.style.maxHeight = '70vh';
-	modalContent.style.height = '100vh';
-	invalidForm.classList.add('hidden');
 }
 
 // handle invalid form
 function handleInvalidForm() {
-	invalidForm.classList.remove('hidden');
+	if (!form.classList.contains('hidden')) {
+		invalidForm.classList.remove('hidden');
+	}
 }
-
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener('click', launchModal));
-
-// close modal event
-closeBtn.addEventListener('click', () => {
-	closeModal();
-});
