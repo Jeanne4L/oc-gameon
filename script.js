@@ -57,13 +57,14 @@ closeBtn.addEventListener('click', () => {
 // check input value
 function handleInputChange(elt, regex) {
 	elt.addEventListener('change', (e) => {
-		if (!regex.test(e.target.value)) {
-			elt.classList.add('error');
-			elt.nextElementSibling.classList.remove('hidden');
-		} else {
-			elt.classList.remove('error');
-			elt.nextElementSibling.classList.add('hidden');
-		}
+		// if (!regex.test(e.target.value)) {
+		// 	elt.classList.add('error');
+		// 	elt.nextElementSibling.classList.remove('hidden');
+		// } else {
+		// 	elt.classList.remove('error');
+		// 	elt.nextElementSibling.classList.add('hidden');
+		// }
+		console.log(elt);
 	});
 }
 
