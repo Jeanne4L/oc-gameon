@@ -147,7 +147,7 @@ h1 {
 /* ------------ Modal form ------------- */
 
 .btn-submit {
-	display: inline-block;
+	display: block;
 	margin: 0 auto;
 	border-radius: 7px;
 }
@@ -191,6 +191,13 @@ h1 {
 	justify-content: center;
 	align-items: center;
 }
+.modal-validation-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+	flex: 1;
+}
 fieldset {
 	border: none;
 }
@@ -213,8 +220,8 @@ input {
 	color: var(--primary-color);
 	font-size: 1rem;
 }
-#form-error {
-	margin: 10px 0;
+#useterms-error {
+	margin-left: 36px;
 }
 .text-control {
 	margin: 0;

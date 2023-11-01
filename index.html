@@ -57,7 +57,7 @@
 				<div class="content">
 					<span class="close"></span>
 					<div class="modal-body">
-						<form name="reserve" onsubmit="return validate();">
+						<form id="reserve">
 							<div class="formData">
 								<label for="first">Prénom *</label>
 								<input
@@ -66,7 +66,6 @@
 									id="first"
 									name="first"
 									minlength="2"
-									required
 								/>
 								<p class="error-message hidden">
 									Veuillez entrer 2 lettres ou plus
@@ -80,7 +79,6 @@
 									id="last"
 									name="last"
 									minlength="2"
-									required
 								/>
 								<p class="error-message hidden">
 									Veuillez n'entrer que des lettres
@@ -93,7 +91,6 @@
 									type="email"
 									id="email"
 									name="email"
-									required
 								/>
 								<p class="error-message hidden">
 									Veuillez entrer un email valide
@@ -106,7 +103,6 @@
 									type="date"
 									id="birthdate"
 									name="birthdate"
-									required
 								/>
 								<p class="error-message hidden">
 									Veuillez sélectionner votre date de naissance
@@ -123,7 +119,6 @@
 									class="text-control custom-select"
 									id="quantity"
 									name="quantity"
-									required
 								/>
 								<p class="error-message hidden">
 									Veuillez n'entrer que des nombres
@@ -134,7 +129,7 @@
 								<legend class="text-label">
 									A quel tournoi souhaitez-vous participer cette année ? *
 								</legend>
-								<div class="formData" required>
+								<div class="formData">
 									<input
 										class="checkbox-input"
 										type="radio"
@@ -202,7 +197,7 @@
 										Portland</label
 									>
 								</div>
-								<p class="error-message hidden">
+								<p id="location-error" class="error-message hidden">
 									Veuillez sélectionner un tournoi
 								</p>
 							</fieldset>
@@ -212,30 +207,32 @@
 									class="checkbox-input"
 									type="checkbox"
 									id="checkbox1"
+									name="useterms"
 									checked
-									required
 								/>
 								<label class="checkbox2-label" for="checkbox1">
 									<span class="checkbox-icon"></span>
 									J'ai lu et accepté les conditions d'utilisation. *
 								</label>
-								<p class="error-message hidden">
+								<p id="useterms-error" class="error-message hidden">
 									Veuillez accepter les conditions
 								</p>
+							</div>
 
+							<div class="formData">
 								<input class="checkbox-input" type="checkbox" id="checkbox2" />
 								<label class="checkbox2-label" for="checkbox2">
 									<span class="checkbox-icon"></span>
 									Je souhaite être prévenu des prochains évènements.
 								</label>
 							</div>
+							<input
+								type="submit"
+								value="C'est parti"
+								id="submit-btn"
+								class="btn btn-submit btn--red"
+							/>
 						</form>
-						<p id="form-error" class="error-message hidden">
-							Veuillez remplir tous les champs requis (*)
-						</p>
-						<button id="submit-btn" class="btn btn-submit btn--red">
-							C'est parti
-						</button>
 					</div>
 				</div>
 			</div>
