@@ -1,7 +1,7 @@
 // DOM Elements
-const modalbg = document.querySelector('.bground');
-const modalBody = document.querySelector('.modal-body');
-const modalContent = document.querySelector('.content');
+const modalOverlay = document.querySelector('.overlay');
+const modal = document.querySelector('.modal');
+const modalContent = document.querySelector('.modal-content');
 const modalBtn = document.querySelectorAll('.btn-signup');
 const closeCrossBtn = document.querySelector('.close');
 const firstName = document.querySelector('#first');
@@ -97,28 +97,28 @@ validateInput();
 
 // display responsive menu
 const displayMenu = () => {
-	var x = document.getElementById('myTopnav');
-	if (x.className === 'topnav') {
+	var x = document.getElementById('header');
+	if (x.className === 'header') {
 		x.className += ' responsive';
 	} else {
-		x.className = 'topnav';
+		x.className = 'header';
 	}
 };
 
 // launch modal form
 const launchModal = () => {
-	modalbg.classList.remove('hidden');
-	modalContent.classList.remove('hide-modal-content');
+	modalOverlay.classList.remove('hidden');
+	modal.classList.remove('hide-modal-content');
 	form.classList.remove('hidden');
 
-	modalContent.style.height = 'auto';
-	modalBody.style.maxHeight = 'none';
+	modal.style.height = 'auto';
+	modalContent.style.maxHeight = 'none';
 };
 // close modal
 const closeModal = () => {
-	modalContent.classList.add('hide-modal-content');
+	modal.classList.add('hide-modal-content');
 	setTimeout(() => {
-		modalbg.classList.add('hidden');
+		modalOverlay.classList.add('hidden');
 		validationMessageContainer.classList.add('hidden');
 	}, 400);
 };
@@ -146,8 +146,8 @@ const removeError = (elt) => {
 };
 
 const changeModalStyle = (maxHeight, height) => {
-	modalBody.style.maxHeight = maxHeight;
-	modalContent.style.height = height;
+	modalContent.style.maxHeight = maxHeight;
+	modal.style.height = height;
 };
 
 // handle valid form
@@ -167,7 +167,7 @@ const handleValidForm = () => {
 		validationMessage.classList.add('validation-title');
 		closeModalBtn.classList.add('btn', 'btn--red');
 
-		modalBody.appendChild(validationMessageContainer);
+		modalContent.appendChild(validationMessageContainer);
 		validationMessageContainer.appendChild(validationMessage);
 		validationMessageContainer.appendChild(closeModalBtn);
 	}

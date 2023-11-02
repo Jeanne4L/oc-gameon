@@ -14,17 +14,16 @@
 		/>
 	</head>
 	<body>
-		<div class="topnav" id="myTopnav">
-			<div class="header-logo">
-				<a href="index.html">
-					<img alt="logo" src="logo.png" />
-				</a>
-			</div>
-			<div class="main-navbar">
-				<a href="#" class="active"><span>Détails de l'évènement</span></a>
-				<a href="#"><span>À propos</span></a>
-				<a href="#"><span>Contact</span></a>
-				<a href="#"><span>Évènements passés</span></a>
+		<header class="header" id="header">
+			<a class="header-logo" href="index.html">
+				<img alt="logo" src="logo.png" />
+			</a>
+
+			<nav class="header-navbar">
+				<a href="#" class="active">Détails de l'évènement</a>
+				<a href="#">À propos</a>
+				<a href="#">Contact</a>
+				<a href="#">Évènements passés</a>
 				<a
 					href="javascript:void(0);"
 					class="icon menu-icon"
@@ -32,10 +31,10 @@
 				>
 					<i class="fa fa-bars"></i>
 				</a>
-			</div>
-		</div>
+			</nav>
+		</header>
 		<main>
-			<div class="hero-section">
+			<div class="hero">
 				<div class="hero-content">
 					<h1>
 						Marathon national<br />
@@ -53,15 +52,15 @@
 				<button class="btn btn-signup btn--red">je m'inscris</button>
 			</div>
 
-			<div class="bground hidden">
-				<div class="content">
+			<div class="overlay hidden">
+				<div class="modal">
 					<span class="close"></span>
-					<div class="modal-body">
+					<div class="modal-content">
 						<form id="reserve">
 							<div class="formData">
 								<label for="first">Prénom *</label>
 								<input
-									class="text-control"
+									class="form-item"
 									type="text"
 									id="first"
 									name="first"
@@ -74,7 +73,7 @@
 							<div class="formData">
 								<label for="last">Nom *</label>
 								<input
-									class="text-control"
+									class="form-item"
 									type="text"
 									id="last"
 									name="last"
@@ -86,12 +85,7 @@
 							</div>
 							<div class="formData">
 								<label for="email">E-mail *</label>
-								<input
-									class="text-control"
-									type="email"
-									id="email"
-									name="email"
-								/>
+								<input class="form-item" type="email" id="email" name="email" />
 								<p class="error-message hidden">
 									Veuillez entrer un email valide
 								</p>
@@ -99,7 +93,7 @@
 							<div class="formData">
 								<label for="birthdate">Date de naissance *</label>
 								<input
-									class="text-control"
+									class="form-item"
 									type="date"
 									id="birthdate"
 									name="birthdate"
@@ -116,7 +110,7 @@
 								<input
 									type="number"
 									min="0"
-									class="text-control custom-select"
+									class="form-item custom-select"
 									id="quantity"
 									name="quantity"
 								/>
@@ -126,7 +120,7 @@
 							</div>
 
 							<fieldset>
-								<legend class="text-label">
+								<legend class="form-location-label">
 									A quel tournoi souhaitez-vous participer cette année ? *
 								</legend>
 								<div class="formData">
