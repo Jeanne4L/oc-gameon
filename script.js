@@ -40,9 +40,9 @@ const inputs = {
 	quantity: function (value) {
 		return nbRegex.test(value);
 	},
-	// location: function (elt) {
-	// 	return elt.checked;
-	// },
+	location: function (value) {
+		return onlyLetterRegex.test(value);
+	},
 	useterms: function (elt) {
 		return elt.checked;
 	},
@@ -56,8 +56,6 @@ const validateInput = () => {
 		let isValidForm = true;
 		const formElts = form.elements;
 
-		// console.log(formElts['location'].value);
-
 		for (let key in inputs) {
 			let formElt = formElts[key];
 			let formEltName = formElts[key].name;
@@ -65,22 +63,31 @@ const validateInput = () => {
 			let formEltType = formElts[key].type;
 
 			if (formEltType === 'checkbox') {
-				if (!inputs[formEltName](formElt)) {
+				if (!inputs[key](formElt)) {
 					document.querySelector('#useterms-error').classList.remove('hidden');
 					isValidForm = false;
 				} else {
 					document.querySelector('#useterms-error').classList.add('hidden');
 				}
 			} else {
-				if (!inputs[formEltName](formEltValue)) {
-					displayError(formElt);
+				if (!inputs[key](formEltValue)) {
+					if (key === 'location') {
+						document
+							.querySelector('#location-error')
+							.classList.remove('hidden');
+					} else {
+						displayError(formElt);
+					}
 					isValidForm = false;
 				} else {
-					removeError(formElt);
+					if (key === 'location') {
+						document.querySelector('#location-error').classList.add('hidden');
+					} else {
+						removeError(formElt);
+					}
 				}
 			}
 		}
-
 		if (isValidForm) {
 			handleValidForm();
 		}
@@ -103,6 +110,9 @@ const launchModal = () => {
 	modalbg.classList.remove('hidden');
 	modalContent.classList.remove('hide-modal-content');
 	form.classList.remove('hidden');
+
+	modalContent.style.height = 'auto';
+	modalBody.style.maxHeight = 'none';
 };
 // close modal
 const closeModal = () => {
@@ -127,6 +137,8 @@ closeModalBtn.addEventListener('click', () => {
 const displayError = (elt) => {
 	elt.classList.add('error');
 	elt.nextElementSibling.classList.remove('hidden');
+
+	elt.focus();
 };
 const removeError = (elt) => {
 	elt.classList.remove('error');
@@ -144,18 +156,22 @@ const handleValidForm = () => {
 	form.reset();
 	form.classList.add('hidden');
 
-	// create the validation message
-	validationMessage.innerHTML = 'Merci pour<br>votre inscription';
-	closeModalBtn.textContent = 'Fermer';
+	if (validationMessageContainer.classList.contains('hidden')) {
+		validationMessageContainer.classList.remove('hidden');
+	} else {
+		// create the validation message
+		validationMessage.innerHTML = 'Merci pour<br>votre inscription';
+		closeModalBtn.textContent = 'Fermer';
 
-	validationMessageContainer.classList.add('modal-validation-container');
-	validationMessage.classList.add('validation-title');
-	closeModalBtn.classList.add('btn', 'btn--red');
+		validationMessageContainer.classList.add('modal-validation-container');
+		validationMessage.classList.add('validation-title');
+		closeModalBtn.classList.add('btn', 'btn--red');
 
-	modalBody.appendChild(validationMessageContainer);
-	validationMessageContainer.appendChild(validationMessage);
-	validationMessageContainer.appendChild(closeModalBtn);
+		modalBody.appendChild(validationMessageContainer);
+		validationMessageContainer.appendChild(validationMessage);
+		validationMessageContainer.appendChild(closeModalBtn);
+	}
 
 	// Change modal style
-	changeModalStyle('90vh', '100vh');
+	changeModalStyle('85vh', '100vh');
 };
