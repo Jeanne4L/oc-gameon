@@ -4,14 +4,8 @@ const modal = document.querySelector('.modal');
 const modalContent = document.querySelector('.modal-content');
 const modalBtn = document.querySelectorAll('.btn-signup');
 const closeCrossBtn = document.querySelector('.close');
-const firstName = document.querySelector('#first');
-const lastName = document.querySelector('#last');
-const email = document.querySelector('#email');
-const birthDate = document.querySelector('#birthdate');
-const qty = document.querySelector('#quantity');
-const useTerms = document.getElementsByName('usesterms');
-const submitBtn = document.querySelector('#submit-btn');
 const form = document.querySelector('#reserve');
+const formElts = form.elements;
 
 const validationMessageContainer = document.createElement('div');
 const validationMessage = document.createElement('h2');
@@ -87,31 +81,52 @@ closeModalBtn.addEventListener('click', () => {
 	closeModal();
 });
 
-// check input value and submit form
-const validateInput = () => {
+// check inputs
+const validateInputs = () => {
+	Object.entries(inputValidationHandlers).forEach(
+		([key, inputValidationHandlers]) => {
+			const formElt = formElts[key];
+
+			formElt.onchange = function () {
+				if (!inputValidationHandlers(formElt)) {
+					displayError(formElt, key);
+					return false;
+				} else {
+					removeError(formElt, key);
+					return true;
+				}
+			};
+		}
+	);
+};
+validateInputs();
+
+// check and submit form
+const validateForm = () => {
 	form.addEventListener('submit', (e) => {
 		e.preventDefault();
 
 		let isValidForm = true;
-		const formElts = form.elements;
 
-		Object.entries(inputValidationHandlers).forEach(([key, value]) => {
-			let formElt = formElts[key];
+		Object.entries(inputValidationHandlers).forEach(
+			([key, inputValidationHandlers]) => {
+				const formElt = formElts[key];
 
-			if (!inputValidationHandlers[key](formElt)) {
-				displayError(formElt, key);
-				isValidForm = false;
-			} else {
-				removeError(formElt, key);
+				if (!inputValidationHandlers(formElt)) {
+					displayError(formElt, key);
+					isValidForm = false;
+				} else {
+					removeError(formElt, key);
+				}
 			}
-		});
+		);
 
 		if (isValidForm) {
 			handleValidForm();
 		}
 	});
 };
-validateInput();
+validateForm();
 
 // Display and hide form errors
 const displayError = (elt, key) => {
