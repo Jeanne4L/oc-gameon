@@ -64,6 +64,14 @@ const launchModal = () => {
 // close modal
 const closeModal = () => {
 	modal.classList.add('hide-modal-content');
+
+	Object.entries(inputValidationHandlers).forEach(
+		([key, inputValidationHandlers]) => {
+			const formElt = formElts[key];
+			removeError(formElt, key);
+		}
+	);
+
 	setTimeout(() => {
 		modalOverlay.classList.add('hidden');
 		validationMessageContainer.classList.add('hidden');
