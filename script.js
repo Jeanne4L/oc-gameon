@@ -59,12 +59,15 @@ const launchModal = () => {
 
 	modal.style.height = 'auto';
 	modalContent.style.maxHeight = 'none';
+
+	formElts[0].focus();
 };
 
 // close modal
 const closeModal = () => {
 	modal.classList.add('hide-modal-content');
 
+	form.reset();
 	Object.entries(inputValidationHandlers).forEach(
 		([key, inputValidationHandlers]) => {
 			const formElt = formElts[key];
@@ -98,10 +101,10 @@ const validateInputs = () => {
 			formElt.onchange = function () {
 				if (!inputValidationHandlers(formElt)) {
 					displayError(formElt, key);
-					return false;
+					// return false;
 				} else {
 					removeError(formElt, key);
-					return true;
+					// return true;
 				}
 			};
 		}
