@@ -101,10 +101,8 @@ const validateInputs = () => {
 			formElt.onchange = function () {
 				if (!inputValidationHandlers(formElt)) {
 					displayError(formElt, key);
-					// return false;
 				} else {
 					removeError(formElt, key);
-					// return true;
 				}
 			};
 		}
