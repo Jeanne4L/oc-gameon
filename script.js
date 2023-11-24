@@ -93,22 +93,30 @@ closeModalBtn.addEventListener('click', () => {
 });
 
 // check inputs
-const validateInputs = () => {
+const addFormEventListeners = () => {
 	Object.entries(inputValidationHandlers).forEach(
 		([key, inputValidationHandlers]) => {
 			const formElt = formElts[key];
 
-			formElt.onchange = function () {
+			const handleChange = () => {
 				if (!inputValidationHandlers(formElt)) {
 					displayError(formElt, key);
 				} else {
 					removeError(formElt, key);
 				}
 			};
+
+			if (key === 'location') {
+				formElt.forEach((elt) => {
+					elt.addEventListener('change', handleChange);
+				});
+			} else {
+				formElt.addEventListener('change', handleChange);
+			}
 		}
 	);
 };
-validateInputs();
+addFormEventListeners();
 
 // check and submit form
 const validateForm = () => {
@@ -152,10 +160,20 @@ const removeError = (elt, key) => {
 	document.querySelector(`#${key}-error`).classList.add('hidden');
 };
 
-// Change validation modal height
-const changeModalStyle = (maxHeight, height) => {
-	modalContent.style.maxHeight = maxHeight;
-	modal.style.height = height;
+// handle valid form
+const handleValidForm = () => {
+	// remove the form
+	form.reset();
+	form.classList.add('hidden');
+
+	// display validation message
+	if (validationMessageContainer.classList.contains('hidden')) {
+		validationMessageContainer.classList.remove('hidden');
+	} else {
+		createValidationMessage();
+	}
+
+	changeModalStyle('85vh', '100vh');
 };
 
 // Create validation message
@@ -172,18 +190,8 @@ const createValidationMessage = () => {
 	validationMessageContainer.appendChild(closeModalBtn);
 };
 
-// handle valid form
-const handleValidForm = () => {
-	// remove the form
-	form.reset();
-	form.classList.add('hidden');
-
-	// display validation message
-	if (validationMessageContainer.classList.contains('hidden')) {
-		validationMessageContainer.classList.remove('hidden');
-	} else {
-		createValidationMessage();
-	}
-
-	changeModalStyle('85vh', '100vh');
+// Change validation modal height
+const changeModalStyle = (maxHeight, height) => {
+	modalContent.style.maxHeight = maxHeight;
+	modal.style.height = height;
 };
