@@ -421,7 +421,7 @@ footer {
 	.header.responsive .icon {
 		position: absolute;
 		right: 3.5%;
-		top: 4%;
+		top: 25px;
 	}
 	.header.responsive a {
 		float: none;
