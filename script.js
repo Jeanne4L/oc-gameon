@@ -92,31 +92,28 @@ closeModalBtn.addEventListener('click', () => {
 	closeModal();
 });
 
-// check inputs
-const addFormEventListeners = () => {
-	Object.entries(inputValidationHandlers).forEach(
-		([key, inputValidationHandlers]) => {
-			const formElt = formElts[key];
+// check inputs value
+Object.entries(inputValidationHandlers).forEach(
+	([key, inputValidationHandlers]) => {
+		const formElt = formElts[key];
 
-			const handleChange = () => {
-				if (!inputValidationHandlers(formElt)) {
-					displayError(formElt, key);
-				} else {
-					removeError(formElt, key);
-				}
-			};
-
-			if (key === 'location') {
-				formElt.forEach((elt) => {
-					elt.addEventListener('change', handleChange);
-				});
+		const handleChange = () => {
+			if (!inputValidationHandlers(formElt)) {
+				displayError(formElt, key);
 			} else {
-				formElt.addEventListener('change', handleChange);
+				removeError(formElt, key);
 			}
+		};
+
+		if (key === 'location') {
+			formElt.forEach((elt) => {
+				elt.addEventListener('change', handleChange);
+			});
+		} else {
+			formElt.addEventListener('change', handleChange);
 		}
-	);
-};
-addFormEventListeners();
+	}
+);
 
 // check and submit form
 const validateForm = () => {
