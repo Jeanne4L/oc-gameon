@@ -4,6 +4,7 @@ const modal = document.querySelector('.modal');
 const modalContent = document.querySelector('.modal-content');
 const modalBtn = document.querySelectorAll('.btn-signup');
 const closeCrossBtn = document.querySelector('.close');
+const menuIcon = document.querySelector('#header-navbar-menu_icon');
 const form = document.querySelector('#reserve');
 const formElts = form.elements;
 
@@ -42,14 +43,14 @@ const inputValidationHandlers = {
 };
 
 // display responsive menu
-const displayMenu = () => {
+menuIcon.addEventListener('click', () => {
 	var x = document.getElementById('header');
 	if (x.className === 'header') {
 		x.className += ' responsive';
 	} else {
 		x.className = 'header';
 	}
-};
+});
 
 // launch modal form
 const launchModal = () => {
